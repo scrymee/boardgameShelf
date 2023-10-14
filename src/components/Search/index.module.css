@@ -1,0 +1,46 @@
+.input {
+    width: 60%;
+    padding: 0.2rem 1rem;
+    margin: 1rem;
+    border-radius: 5px;
+    font-size: .9rem;
+
+}
+
+.search {
+    background-color: #FFCF00;
+    font-weight: bold;
+    padding: 0.2rem 1rem;
+    margin: 1rem;
+    border-radius: 5px;
+    font-size: .9rem;
+}
+
+.result_box {
+    width: 100vw;
+}
+
+.search_result {
+    display: inline-block;
+    text-align: left;
+    font-size: .8rem;
+    padding: .5rem;
+    margin: .5rem;
+    border: 1px solid #fff;
+    width: 90vw;
+}
+
+.search_name {
+    display: inline-block;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search_action {
+    display: inline-block;
+    font-size: 1.2rem;
+    width: 10%;
+    text-align: right;
+}

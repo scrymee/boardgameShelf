@@ -1,0 +1,33 @@
+.cover {
+    display: inline-block;
+    margin: .5rem 1rem;
+    width: 40vw;
+    height: 40vw;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    height: 40vw;
+    animation: smooth .5s ease-in-out;
+}
+
+.img {
+    display: block;
+}
+
+@keyframes smooth {
+    0% {
+        opacity: 0;
+        transform: translate(0, 10px)
+    }
+
+
+    100% {
+        opacity: 1;
+    }
+
+}
