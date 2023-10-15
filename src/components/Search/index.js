@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
 import style from "./index.module.css"
 
-export default function Search(props) {
+export default function Search({ onClick }) {
     const [gameLists, setGameLists] = useState([]);
     const [searchQuery, setQuery] = useState('');
+
+    const addFavoriteList = (e) => {
+        // console.log(e.target)
+        // 下だとうまくいく
+        // console.log(e.currentTarget)
+        const dataId = e.currentTarget.getAttribute('data-id');
+        const gameName = e.currentTarget.getAttribute('data-gameName');
+        onClick(dataId, gameName)
+
+    }
 
     const search = () => {
         setGameLists([]);
@@ -40,7 +50,8 @@ export default function Search(props) {
             </div>
             {gameLists.length ? (gameLists.map((game, index) => (
                 <div className={style.result_box}>
-                    <div className={style.search_result} key={index} data-id={game.id}>
+                    <div className={style.search_result} key={index} data-id={game.id} data-gameName={game.name}
+                        onClick={addFavoriteList}>
                         <span className={style.search_name}>
                             {game.name}
                         </span>

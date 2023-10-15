@@ -10,12 +10,40 @@ import Search from "./components/Search/index"
 
 function App() {
 
-  const [bggids, setBggId] = useState(null)
+  const [boardGameLists, setBoardGameLists] = useState([
+    { id: '853', name: null },
+    { id: '359970', name: null },
+  ])
+
   useEffect(() => {
-    // { id: 853, name: 'チャレンジャーズ' },
-    setBggId([{ id: 853, name: 'チャレンジャーズ' }])
+    const searchParams = new URLSearchParams(window.location.search)
+    // main/?query=
+    if (searchParams.has('q1')) {
+      const gameList = {
+        id: searchParams.get('q1')
+      }
+      setBoardGameLists((preList) => [...preList, gameList])
+    }
+    return () => { }
 
   }, [])
+
+
+  const handleSearchGameId = (id, gameName) => {
+    // console.log('要素がクリックされました')
+    // console.log(id)
+    const gamelist = {
+      id: id,
+      name: gameName
+    }
+    if (boardGameLists.length > 6) {
+      alert('指定するボードゲームは6つまでにしてください')
+
+    }
+    console.log(boardGameLists)
+    setBoardGameLists((prevIds) => [...prevIds, gamelist])
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -26,22 +54,21 @@ function App() {
         {/* <Section backgroundColor="#333"> */}
         <Section>
           <SectionSpacing backgroundColor="#282c34" />
-          {/* {bggids.map((aaa) => {
-            <Cover bggid={aaa} />
-          })} */}
-          <Cover bggid="359970" />
-          <Cover bggid="342942" />
+          {boardGameLists.map((game, index) => {
+            return <Cover key={index} bggid={game.id} />
+          })}
+          {/* <Cover bggid="342942" />
           <Cover bggid="220308" />
           <Cover bggid="853" />
           <Cover bggid="40692" />
-          <Cover bggid="207830" />
+          <Cover bggid="207830" /> */}
         </Section>
       </header>
       <Section backgroundColor="#282c34" color="#fff">
         <SectionSpacing backgroundColor="#fff" />
         <h1>シェア</h1>
         <i class="fa fa-chevron-down"></i>
-        <Search />
+        <Search onClick={handleSearchGameId} />
         {/* <button className='btn'>新しく作成する</button> */}
         <p>
           <button className='btn'>新しく作成する</button>
