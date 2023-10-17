@@ -9,24 +9,21 @@ import SectionSpacing from "./components/SectionSpacing/index"
 import Search from "./components/Search/index"
 
 function App() {
+  const searchParams = new URLSearchParams(window.location.search)
 
-  const [boardGameLists, setBoardGameLists] = useState([
-    { id: '853', name: null },
-    { id: '359970', name: null },
-  ])
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search)
-    // main/?query=
-    if (searchParams.has('q1')) {
-      const gameList = {
-        id: searchParams.get('q1')
-      }
-      setBoardGameLists((preList) => [...preList, gameList])
+  let boardGameListInit = [];
+  for (let i = 1; i <= 6; i++) {
+    const paramName = `q${i}`;
+    if (searchParams.has(paramName)) {
+      boardGameListInit.push({
+        id: searchParams.get(paramName)
+      });
     }
-    return () => { }
+  }
 
-  }, [])
+
+  const [boardGameLists, setBoardGameLists] = useState(boardGameListInit)
 
 
   const handleSearchGameId = (id, gameName) => {
