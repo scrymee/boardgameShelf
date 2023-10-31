@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import './reset.css';
 
-import Cover from "./components/Cover/index"
-import Section from "./components/Section/index"
-import SectionSpacing from "./components/SectionSpacing/index"
-import Search from "./components/Search/index"
+import Cover from "./components/Cover"
+import Section from "./components/Section"
+import SectionSpacing from "./components/SectionSpacing"
+import Search from "./components/Search"
 
 function App() {
   const searchParams = new URLSearchParams(window.location.search)
