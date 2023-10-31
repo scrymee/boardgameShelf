@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { fetchSearchBoardGame } from "../api/bgg";
 import style from "./index.module.css"
 
 export default function Search({ onClick }) {
@@ -17,28 +18,10 @@ export default function Search({ onClick }) {
 
     const search = () => {
         setGameLists([]);
+        fetchSearchBoardGame(searchQuery).then((newGameLists) => {
+            setGameLists((prevGameLists) => [...prevGameLists, ...newGameLists]);
 
-        const url = "https://api.geekdo.com/xmlapi2/search?query=" + searchQuery;
-        fetch(url)
-            .then((response) => response.text())
-            .then((xmlData) => {
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlData, 'application/xml');
-                const items = xmlDoc.querySelectorAll('item');
-                if (items.length > 0) {
-                    let newGameLists = [];
-                    items.forEach((item) => {
-                        const name = item.querySelector('name').getAttribute('value')
-                        const id = item.getAttribute('id')
-                        const gameList = { name: name, id: id }
-                        newGameLists.push(gameList);
-                    });
-                    setGameLists((prevGameLists) => [...prevGameLists, ...newGameLists]);
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching data: ", error);
-            });
+        })
     }
 
 

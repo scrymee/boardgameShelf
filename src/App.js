@@ -21,15 +21,11 @@ function App() {
       });
     }
   }
-
-
   const [boardGameLists, setBoardGameLists] = useState(boardGameListInit)
 
 
   const handleSearchGameId = (id, gameName) => {
-    // console.log('要素がクリックされました')
-    // console.log(id)
-    const gamelist = {
+    const gameList = {
       id: id,
       name: gameName
     }
@@ -37,8 +33,18 @@ function App() {
       alert('指定するボードゲームは6つまでにしてください')
 
     }
-    console.log(boardGameLists)
-    setBoardGameLists((prevIds) => [...prevIds, gamelist])
+    setBoardGameLists((prevIds) => [...prevIds, gameList])
+  }
+  const [shareLink, setShareLink] = useState('')
+  const handleShareLink = () => {
+    let url = 'http://localhost:3000/';
+    let query = ''
+    boardGameLists.forEach((game, index) => {
+      query = query + "&q" + (index + 1) + "=" + game.id
+    })
+    query = query.replace(/^&/, '?');
+    url = url + query
+    setShareLink(url)
   }
 
   return (
@@ -47,28 +53,24 @@ function App() {
         <Section backgroundColor="#282c34" color="#fff">
           <h1>🎉 My Favorite Game</h1>
         </Section>
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* <Section backgroundColor="#333"> */}
         <Section>
           <SectionSpacing backgroundColor="#282c34" />
-          {boardGameLists.map((game, index) => {
-            return <Cover key={index} bggid={game.id} />
+          {boardGameLists.map((game) => {
+            return <Cover key={game.id} bggid={game.id} />
           })}
-          {/* <Cover bggid="342942" />
-          <Cover bggid="220308" />
-          <Cover bggid="853" />
-          <Cover bggid="40692" />
-          <Cover bggid="207830" /> */}
         </Section>
       </header>
       <Section backgroundColor="#282c34" color="#fff">
         <SectionSpacing backgroundColor="#fff" />
-        <h1>シェア</h1>
-        <i class="fa fa-chevron-down"></i>
         <Search onClick={handleSearchGameId} />
-        {/* <button className='btn'>新しく作成する</button> */}
+        <h1>シェア</h1>
+        {/* http://localhost:3000/?q1=853&q2=342942&q3=40692&q4=207830&q5=220308&q6=234 */}
+        <i class="fa fa-chevron-down"></i>
         <p>
-          <button className='btn'>新しく作成する</button>
+          <button className='btn' onClick={handleShareLink}>新しく作成する</button>
+          {shareLink ? (
+            <input value={shareLink}></input>
+          ) : (<p>Loading</p>)}
         </p>
       </Section>
       <Section>
